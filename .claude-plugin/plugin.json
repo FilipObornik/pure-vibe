@@ -1,0 +1,10 @@
+{
+  "name": "vibe",
+  "displayName": "Vibe: od vibecodingu k řemeslu",
+  "version": "0.1.0",
+  "description": "České skilly, které z vibecodingu udělají udržitelnou práci. Rozhovor před stavbou, ověřování v prohlížeči, hlídání toho, kdo vidí čí data.",
+  "author": { "name": "Filip Oborník", "url": "https://filipobornik.cz" },
+  "homepage": "https://filipobornik.cz",
+  "license": "MIT",
+  "keywords": ["czech", "vibecoding", "nextjs", "supabase", "playwright"]
+}

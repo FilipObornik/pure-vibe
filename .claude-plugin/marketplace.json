@@ -1,0 +1,15 @@
+{
+  "name": "filip-obornik",
+  "owner": { "name": "Filip Oborník", "url": "https://filipobornik.cz" },
+  "description": "Skilly pro lidi, kteří staví s AI a chtějí, aby to vydrželo.",
+  "plugins": [
+    {
+      "name": "vibe",
+      "displayName": "Vibe: od vibecodingu k řemeslu",
+      "source": "./",
+      "description": "Rozhovor před stavbou, ověřování v prohlížeči, hlídání oprávnění. Česky.",
+      "category": "development",
+      "keywords": ["czech", "vibecoding"]
+    }
+  ]
+}
