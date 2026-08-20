@@ -22,9 +22,11 @@ Než začneš, přečti `KONTEXT.md` kvůli slovníku a `rozhodnuti/` kvůli tom
 
 6. **Průběžně pouštěj `npm run check`.** Kontrola typů a rychlé testy, otázka sekund. Celou sadu včetně prohlížeče až na konci, ta se pouští jednou.
 
-7. **Ověř.** Zavolej skill "zkontroluj".
+7. **Podívej se na to.** Spusť aplikaci a otevři stránku, které ses dotkl. Udělej screenshot a přečti chyby v konzoli. **Prázdná stránka, chyba v konzoli nebo rozsypaný obsah jsou nález, i když jsou testy zelené**, protože test ověří jen to, co jsi mu nadiktoval. Stačí na to Playwright, který v projektu už je, žádný další nástroj k tomu nepotřebuješ. Server po sobě zase zhasni, jinak zůstane viset na portu a příští spuštění spadne na něčem, co s prací nesouvisí. Tohle není ověření, to je krok 8.
 
-8. **Ulož checkpoint.** Commit na aktuální větev, v popisu jednou větou česky, co teď funguje.
+8. **Ověř.** Zavolej skill "zkontroluj".
+
+9. **Ulož checkpoint.** Commit na aktuální větev, v popisu jednou větou česky, co teď funguje.
 
 ## Kdy je řez hotový
 
