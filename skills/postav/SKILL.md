@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 Postav **jeden řez**, ne víc. Když jich uživatel zadá víc, postav první a řekni, že další se dělá načisto v novém sezení.
 
-Než začneš, přečti `KONTEXT.md` kvůli slovníku a `rozhodnuti/` kvůli tomu, co už je rozhodnuté v oblasti, kam saháš. Slovník na návrh drží skill "navrh-kodu", pravidla testů skill "pravidla-testu".
+Než začneš, přečti `KONTEXT.md` kvůli slovníku, `rozhodnuti/` kvůli tomu, co už je rozhodnuté v oblasti, kam saháš, a `zadani.md` ve složce řezu kvůli tomu, co má celá věc umět. Slovník na návrh drží skill "navrh-kodu", pravidla testů skill "pravidla-testu".
 
 ## Postup
 
@@ -16,17 +16,28 @@ Než začneš, přečti `KONTEXT.md` kvůli slovníku a `rozhodnuti/` kvůli tom
 
 3. **Zjisti, kdo co smí.** Když řez přidává nebo mění data, musí být jasné, kdo je smí vidět, měnit a mazat. Když to v zadání není, doptej se přes skill "preklad-rozhodnuti". Nedomýšlej si to.
 
-4. **Piš po jednom.** Jeden test, k němu nejmenší kus kódu, který ho rozsvítí, a další. Nikdy nepiš všechny testy dopředu.
+4. **Piš po jednom.** Jeden test, k němu nejmenší kus kódu, který ho rozsvítí, a další. Nikdy nepiš všechny testy dopředu. V prohlížeči je to jeden test na jednu cestu, a píše se, až když obrazovka stojí.
 
 5. **Test napřed a viz ho spadnout.** Test, který jsi neviděl spadnout, nic neověřuje.
 
 6. **Průběžně pouštěj `npm run check`.** Kontrola typů a rychlé testy, otázka sekund. Celou sadu včetně prohlížeče až na konci, ta se pouští jednou.
 
-7. **Podívej se na to.** Spusť aplikaci a otevři stránku, které ses dotkl. Udělej screenshot a přečti chyby v konzoli. **Prázdná stránka, chyba v konzoli nebo rozsypaný obsah jsou nález, i když jsou testy zelené**, protože test ověří jen to, co jsi mu nadiktoval. Stačí na to Playwright, který v projektu už je, žádný další nástroj k tomu nepotřebuješ. Server po sobě zase zhasni, jinak zůstane viset na portu a příští spuštění spadne na něčem, co s prací nesouvisí. Tohle není ověření, to je krok 8.
+7. **Podívej se na to.** Spusť aplikaci a pusť `npm run screenshot -- <cesta>` na každou stránku, které ses dotkl. Udělá obrázek pro mobil i počítač a vypíše chyby z konzole a padlé požadavky. Obrázky si přečti. **Prázdná stránka, chyba v konzoli nebo rozsypaný obsah jsou nález, i když jsou testy zelené**, protože test ověří jen to, co jsi mu nadiktoval. Když stránka potřebuje přihlášení, dej skriptu stav přihlášení z testů (`--storage`), nepiš si vlastní skript. Server po sobě zase zhasni, jinak zůstane viset na portu a příští spuštění spadne na něčem, co s prací nesouvisí. Tohle není ověření, to je krok 8.
 
 8. **Ověř.** Zavolej skill "zkontroluj".
 
-9. **Ulož checkpoint.** Commit na aktuální větev, v popisu jednou větou česky, co teď funguje.
+9. **Ulož checkpoint.** Commit na aktuální větev, v popisu jednou větou česky, co teď funguje. Pomocné soubory, které jsi cestou vyrobil, před commitem smaž. `prototypy/` jsou jen pro `/vibe:prototyp`, ne pro tvoje nástroje.
+
+10. **Uzavři řez.** V souboru řezu zaškrtni splněné podmínky. Nesplněnou nech nezaškrtnutou a připiš k ní jednou větou proč. Co se dozvěděl tenhle řez a další řez to potřebuje vědět (sdílený testovací účet, past, na kterou jsi narazil), zapiš do jeho pole "Poznámky pro stavbu", ne do chatu. Když byl tenhle řez ve složce poslední, přesuň celou složku do `.ukoly/hotovo/`. Commit.
+
+## Co zůstává uživateli
+
+Pracuješ v kódu a ve vývojové databázi. Všechno za touhle hranicí dělá uživatel:
+
+- **Skutečný mail ověřuje uživatel.** Odkaz z mailu, potvrzovací kód, cokoli, co přijde do schránky. Zapiš to jako první krok do "proklikej sám" ve skillu "zkontroluj". Testy se přihlašují tokenem přes servisní klíč, mail se při nich neposílá.
+- **Klikání v konzoli cizí služby dělá uživatel.** Šablona mailu, povolené adresy, cokoli, co nejde zapsat migrací. Napiš mu přesný postup do "proklikej sám" a zapiš ho i do `rozhodnuti/`, aby se při zakládání ostrého projektu zopakoval.
+
+Tvrdá pojistka: **maily na skutečné adresy neposíláš a schránku uživatele nečteš**, ani přes MCP, ani přes CLI. Uživatel neví, kam všude dosáhneš, a nedal ti k tomu svolení.
 
 ## Kdy je řez hotový
 

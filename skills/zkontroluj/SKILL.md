@@ -35,6 +35,8 @@ Napiš mu proto vždycky **konkrétní kroky**, ne obecné "zkontroluj si to":
 - Kudy má jít, na co kliknout a co má vidět.
 - Aspoň jeden krok, kde se to má chovat **jinak**: prázdný seznam, cizí účet, zrušení uprostřed.
 - Když řez sahá na data více lidí, patří sem proklik ze dvou účtů.
+- Když řez sahá na přihlášení nebo na maily, je **první krok skutečný mail**: uživatel si ho pošle na svou adresu a odkaz otevře na jiném zařízení, než ze kterého o něj žádal. Testy mail neposílají, tohle je jediné místo, kde se ověří.
+- Když řez potřebuje nastavení v konzoli cizí služby, dej to jako samostatný krok před ostatní, napiš přesně kam kliknout a co vložit, a jednou větou, proč to nejde udělat z projektu.
 
 Tři až pět kroků. Když jich je patnáct, je řez moc velký.
 

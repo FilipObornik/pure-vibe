@@ -31,7 +31,8 @@ Struktura databáze vzniká migračním souborem v projektu. Ten je jediný zdro
 
 - **Změnu dělej novou migrací**, i když opravuješ včerejší. Hotová migrace už jinde proběhla, takže její přepsání se v druhém prostředí nikdy neprojeví.
 - **Změny schématu dělej migrací, klikání v konzoli poskytovatele nech na prohlížení dat.** Co vzniklo klikáním, není v projektu a druhé prostředí o tom neví.
-- **Vývojová databáze se musí dát postavit od nuly ze samotných migrací.** Pouštěj reset po každé změně schématu. Když projde jen na databázi, která už data měla, migrace nefungují a pozná se to až na ostré.
+- **Migrace se pouští `supabase db push` na propojený vývojový projekt.** Bez `supabase link` neprojde nic. Vývojová databáze je hostovaná a reset je zakázaný, takže se migrace ověřují tím, že projdou pushem, a čistý průchod od nuly se zkouší až při zakládání ostrého projektu.
+- **Ke každé nové tabulce patří ve stejné migraci `grant` pro role `anon` a `authenticated`.** Automatické zpřístupnění tabulek je vypnuté (nastavuje se při zakládání), takže bez grantu aplikace spadne na `permission denied for table`. Grant otevírá dveře, kdo jimi projde, řídí jen pravidla přístupu.
 - **Po změně schématu přegeneruj typy** a ulož je společně s migrací. Rozejité typy vypadají jako chyba v kódu a hledá se dlouho.
 - **Do ostré databáze jde struktura a pravidla, nikdy data.** Vývojová data patří do souboru s výchozím naplněním, který se pouští jen na vývoji.
 
@@ -53,6 +54,7 @@ Projekt zdarma se **po týdnu bez provozu uspí**. Když testy najednou padají 
 - **Data jsou stará.** Next.js si stránky a dotazy drží v mezipaměti agresivněji, než člověk čeká. Když uživatel po uložení vidí starý stav, hledej tohle, ne chybu v ukládání.
 - **Zpracování platby se dělá po návratu z platební brány.** Nikdy. Jistota o zaplacení pochází z oznámení od poskytovatele na server, uloženého tak, aby dvojí doručení nic nezkazilo. Návrat uživatele je jen obrazovka.
 - **Placená služba se volá v cyklu.** Nejhorší faktury nevznikají z provozu, ale z jednoho dotazu, který se volá pořád dokola.
+- **Odkaz z mailu funguje jen v prohlížeči, kde se o něj žádalo.** Výchozí šablona nese kód svázaný s prohlížečem, takže odkaz otevřený na telefonu po žádosti z počítače skončí na "odkaz neplatí". Šablona musí nést `token_hash` a aplikace ho potvrdí přes `verifyOtp` s typem `email`. Šablonu a povolené adresy návratu nastavuje uživatel v konzoli, ty mu napíšeš přesný postup. Testy se přihlašují tokenem vyrobeným servisním klíčem, mail neposílají; projekt zdarma pošle jen pár mailů za hodinu a ty patří uživateli na ruční ověření.
 
 ## Když si nejsi jistý rozhraním
 
