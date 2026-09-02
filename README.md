@@ -58,7 +58,7 @@ Nemusíš si to pamatovat. Každý skill ti na konci řekne, co je další krok,
 
 **Kdo vidí čí data.** Nejčastější díra v aplikacích stavěných s AI. `/vibe:kdo-vidi-co` se na to ptá otázkami, na které umíš odpovědět, a dělá z odpovědí testy, které běží pořád.
 
-**Paměť mimo chat.** `KONTEXT.md` drží slovník projektu, složka `rozhodnuti/` drží věci, které se budou těžko vracet. Agent tak neztrácí souvislosti mezi sezeními.
+**Paměť mimo chat.** `PRODUKT.md` drží na jednu obrazovku, co to je a co všechno bude umět, `KONTEXT.md` drží slovník projektu, složka `rozhodnuti/` drží věci, které se budou těžko vracet, a `.ukoly/` drží, co je před námi. Agent tak neztrácí souvislosti mezi sezeními.
 
 ## Dvě rychlosti ověřování
 

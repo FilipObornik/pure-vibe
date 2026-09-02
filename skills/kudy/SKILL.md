@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 Nikdo si nepamatuje dvacet skillů. Zjisti, kde uživatel je, a pošli ho dál.
 
-Neptej se ho, který skill chce. Zeptej se, **v jaké je situaci**, a vyber za něj.
+Neptej se ho, který skill chce. Zeptej se, **v jaké je situaci**, a vyber za něj. Než odpovíš, přečti si `PRODUKT.md` a výpis `.ukoly/`: co je nápad, co má zadání a řezy, co je v `hotovo/`. Z toho většinou poznáš, kde je, dřív než se zeptáš.
 
 Příkazy se píšou s předponou pluginu, tedy `/vibe:vyzpovidej`. V textu níž je pro přehlednost bez ní.
 
@@ -28,8 +28,8 @@ Kroky 1 až 3 drž v jednom nepřerušeném sezení, ať na sebe navazují. Kaž
 | "Nevím, co vlastně chci" | `/vyzpovidej` |
 | "Nevím, jak to má vypadat" | `/prototyp` |
 | "Chci to začít" | `/zaloz-projekt` |
-| "Projekt je založený, co teď" | `/vyzpovidej` na první věc, pak `/zadani` |
-| "Chci přidat další funkci" | `/vyzpovidej` na ni, pak `/zadani` |
+| "Projekt je založený, co teď" | první nápad v `.ukoly/` podle pořadí v `PRODUKT.md`: `/vyzpovidej` na něj, pak `/zadani` |
+| "Chci přidat další funkci" | `/vyzpovidej` na ni, pak `/zadani`. Když v `PRODUKT.md` není, nejdřív ji tam doplnit |
 | "Mám hotovou appku a nevím, jestli je v pořádku" | `/zaloz-projekt`, pak `/kdo-vidi-co` |
 | "Něco nefunguje" | `/najdi-chybu` |
 | "Opravuju to potřetí a nic" | `/najdi-chybu` |

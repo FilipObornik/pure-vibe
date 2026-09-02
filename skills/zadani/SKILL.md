@@ -47,10 +47,10 @@ Věci, které jsme vědomě odložili. Buď konkrétní, ať se to nevrátí zad
 Cokoli dalšího.
 ```
 
-Zadání ulož podle nastavení projektu: buď jako soubor do `.ukoly/`, nebo jako issue na GitHubu.
+Zadání ulož podle nastavení projektu. V projektu: složka `.ukoly/<slug>/` a v ní `zadani.md`. Když k té věci existuje `.ukoly/napad-<slug>.md`, smaž ho, zadání ho nahrazuje. Na GitHubu: jedno issue.
 
 Než ho uložíš, ukaž uživateli sekci **Jak poznáme, že to funguje** a nech si ji potvrdit. To je jediná část, kterou musí odsouhlasit, protože z ní vzniknou testy.
 
-Po uložení řekni jednou větou, že další krok je `/vibe:rozsekej`, a taky ve stejném sezení.
+Po uložení commit s popisem česky: zadání je paměť projektu a commituje se hned, ne až s kódem. Pak řekni jednou větou, že další krok je `/vibe:rozsekej`, a taky ve stejném sezení.
 
 Když v tomhle rozhovoru **žádné zpovídání neproběhlo**, není z čeho zadání psát. Nedomýšlej si ho: řekni to a pošli uživatele na `/vibe:vyzpovidej`.

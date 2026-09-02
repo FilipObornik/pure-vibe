@@ -5,9 +5,11 @@ description: Zpovídej uživatele o tom, co staví, dokud není jasno. Použij p
 
 Zpovídej uživatele, dokud nedojdete ke sdílenému pochopení. Drž si to jako **strom rozhodnutí**: každé rozhodnutí větví na rozhodnutí, která na něm visí.
 
-**Nejdřív si ujasni, na jaké úrovni se ptáš.** Když `KONTEXT.md` ještě neexistuje, zpovídáš se na **celý produkt**. Když už existuje, projektová rozhodnutí padla, tak je znovu neotvírej: přečti si `KONTEXT.md` a `rozhodnuti/` a zpovídej se **na tu jednu věc, kterou chce uživatel postavit teď**. Na začátku mu jednou větou řekni, co z toho dvojího děláš, ať ví, proč se ptáš zrovna takhle podrobně.
+**Nejdřív si ujasni, na jaké úrovni se ptáš.** Když `KONTEXT.md` ještě neexistuje, zpovídáš se na **celý produkt**. Když už existuje, projektová rozhodnutí padla, tak je znovu neotvírej: přečti si `PRODUKT.md`, `KONTEXT.md` a `rozhodnuti/` a zpovídej se **na tu jednu věc, kterou chce uživatel postavit teď**. Na začátku mu jednou větou řekni, co z toho dvojího děláš, ať ví, proč se ptáš zrovna takhle podrobně.
 
-U zpovídání na jednu věc jdi do detailu, který by u celého produktu nedával smysl: co přesně se na obrazovce stane, co se stane při chybě, co uvidí někdo cizí, co se má stát s daty, když se to smaže. Z tohohle vzniká `/vibe:zadani`, a co se nezeptáš, to si agent domyslí sám.
+U zpovídání na jednu věc jdi do detailu, který by u celého produktu nedával smysl: co přesně se na obrazovce stane, co se stane při chybě, co uvidí někdo cizí, co se má stát s daty, když se to smaže. Z tohohle vzniká `/vibe:zadani`, a co se nezeptáš, to si agent domyslí sám. Když ta věc v `PRODUKT.md` není, řekni to a nabídni ji tam doplnit; když je, drž se pořadí a toho, co je tam vyloučené.
+
+**Chybějící základ nezpovídej.** Když věc předpokládá něco, co v aplikaci ještě není (přihlášení, typ záznamu, cizí službu), není to otázka pro uživatele. Zapiš si to jako předpoklad, řekni mu jednou větou, že to půjde napřed jako vlastní kus, a nech pořadí na `/vibe:rozsekej`.
 
 Pracuj v **kolech**. **Hranice** je každé rozhodnutí, jehož předpoklady už jsou vyřešené: otázky, na které se můžeš zeptat teď, aniž bys hádal odpovědi, které jsi ještě neslyšel. Zeptej se na celou hranici v jednom kole, nejvýš však na čtyři otázky. Očísluj je, ke každé přidej doporučenou odpověď, a počkej.
 
@@ -35,4 +37,4 @@ Pak shrň v pěti až deseti bodech a v uživatelových slovech, na čem jste se
 
 Nakonec zavolej skill "slovnik": pojmy, které se v rozhovoru ustálily, patří do `KONTEXT.md`, a rozhodnutí, která se budou těžko měnit, do `rozhodnuti/`.
 
-Když jsi se zpovídal **na jednu věc**, řekni na závěr jednou větou, že další krok je `/vibe:zadani`, a že se má udělat teď, v tomhle sezení, dokud je rozhovor po ruce. Když to bylo zpovídání **na celý produkt** uvnitř zakládání projektu, nikam uživatele neposílej, pokračuje skill, který tě zavolal.
+Když jsi se zpovídal **na jednu věc**, řekni na závěr jednou větou, že další krok je `/vibe:zadani`, a že se má udělat teď, v tomhle sezení, dokud je rozhovor po ruce. Zadání sepisuje ten skill, ne ty: i když uživatel řekne "tak to sepiš", odpověz, ať spustí `/vibe:zadani`. Když to bylo zpovídání **na celý produkt** uvnitř zakládání projektu, nikam uživatele neposílej, pokračuje skill, který tě zavolal.

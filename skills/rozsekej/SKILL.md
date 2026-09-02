@@ -33,7 +33,7 @@ Uprav to a zeptej se znovu, dokud to neschválí.
 
 ## Ulož
 
-Podle nastavení projektu buď po jednom souboru do `.ukoly/`, číslované od `01` v pořadí, nebo po jednom issue na GitHubu.
+Podle nastavení projektu buď po jednom souboru do složky té věci `.ukoly/<slug>/`, vedle `zadani.md`, číslované od `01` v pořadí, nebo po jednom issue na GitHubu.
 
 Šablona souboru:
 
@@ -47,8 +47,12 @@ Podle nastavení projektu buď po jednom souboru do `.ukoly/`, číslované od `
 **Hotovo, když:**
 - [ ] <ověřitelná podmínka>
 - [ ] <ověřitelná podmínka>
+
+**Poznámky pro stavbu:** zatím nic. Sem `postav` z předchozích řezů zapíše, co tenhle potřebuje vědět.
 ```
 
 Do souborů nepiš cesty ke kódu ani ukázky. Zastarají.
+
+Po uložení commit s popisem česky, řezy jsou paměť projektu.
 
 Nakonec řekni, že další krok je `/vibe:postav` na první řez, a že se **začíná načisto v novém sezení**. Tohle je jediné místo hlavní cesty, kde se kontext úmyslně zahazuje: zpovídání, zadání a sekání patří k sobě, stavění řezu ne.

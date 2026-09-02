@@ -22,6 +22,8 @@ Když se skill nespouští, kdy má, **nejdřív přepiš popis**, teprve pak ob
 
 Uživatelský skill smí volat modelový. **Uživatelský nikdy nesmí volat jiný uživatelský**, protože ten se z principu spouští jen člověkem. Když ho potřebuješ, doporuč ho uživateli.
 
+`disable-model-invocation` skryje skill ze seznamu, který model vidí, ale ne z disku: cesta k pluginu je v nastavení projektu a model si `SKILL.md` umí přečíst a postup provést, když ho o to uživatel slovně požádá. Je to měkká pojistka. Kde na tom záleží, napiš do skillu, který předchází, ať uživatele pošle na slash a sám to nedělá.
+
 Volání se dělá nástrojem Skill a **jedním voláním jeden skill**. Krok, který potřebuje dva, jsou dvě volání.
 
 ## Dvě zátěže
