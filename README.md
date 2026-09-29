@@ -60,11 +60,11 @@ Nemusíš si to pamatovat. Každý skill ti na konci řekne, co je další krok,
 
 **Paměť mimo chat.** `PRODUKT.md` drží na jednu obrazovku, co to je a co všechno bude umět, `KONTEXT.md` drží slovník projektu, složka `rozhodnuti/` drží věci, které se budou těžko vracet, a `.ukoly/` drží, co je před námi. Agent tak neztrácí souvislosti mezi sezeními.
 
-## Dvě rychlosti ověřování
+## Tři rychlosti ověřování
 
-Během psaní běží `npm run check`: kontrola typů a rychlé testy, otázka sekund. Na konci řezu běží `npm run verify`: úplně všechno včetně prohlížeče.
+Během psaní běží `npm run check`: kontrola typů a jednotkové testy, otázka sekund, do databáze nesahá. Na konci řezu běží `npm run verify:rez`: jen testy, kterých se změna dotkla, a vybrané testy v prohlížeči. Plná sada `npm run verify` pustí úplně všechno a `verify:rez` se na ni přepne sám, když změna sáhne na databázi, přihlášení nebo nastavení testů, nebo když plná sada dlouho neběžela.
 
-Kdyby se po každé změně pouštělo všechno, čekal bys tak dlouho, že bys to začal obcházet. Proto ty dva příkazy. **Řez je hotový až po zeleném `npm run verify`**, `check` ho nenahradí.
+Kdyby se po každé změně pouštělo všechno, čekal bys tak dlouho, že bys to začal obcházet, a databáze na volném plánu by to nevydržela. **Řez je hotový až po zeleném ověření řezu**, `check` ho nenahradí.
 
 ## Technologický stack
 

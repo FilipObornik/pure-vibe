@@ -48,6 +48,8 @@ Vývojová a ostrá databáze jsou **dva oddělené projekty**. Náhledová nasa
 
 Projekt zdarma se **po týdnu bez provozu uspí**. Když testy najednou padají na spojení a v kódu se nic nezměnilo, je to tohle.
 
+Projekt zdarma běží na nejmenším stroji s **půl giga paměti**. Pod zátěží testů jede ze swapu a po vyčerpání denního rozpočtu disku se na desítky sekund **zastaví celý**: databáze, přihlášení i úložiště. Nepřijde chyba, jen dotaz trvá deset sekund místo desetiny a test vyprší. Proto mají testy stropy 60 s a databázové soubory běží nejvýš po čtyřech. Když se testy zpomalí a v kódu se nic nezměnilo, nepouštěj je dokola: každý další běh čerpá stejný rozpočet. Metriky stroje (paměť, swap, disk) vydává `https://<ref>.supabase.co/customer/v1/privileged/metrics` se servisním klíčem, spotřebu rozpočtu disku ukazuje přehled projektu v konzoli.
+
 ## Pasti, které stojí čas
 
 - **Něco funguje lokálně a na Vercelu ne.** Skoro vždycky chybějící proměnná prostředí, nebo kód, který počítá s tím, že běží v prohlížeči, a spustí se na serveru.
