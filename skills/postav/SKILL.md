@@ -16,15 +16,15 @@ Než začneš, přečti `KONTEXT.md` kvůli slovníku, `rozhodnuti/` kvůli tomu
 
 3. **Zjisti, kdo co smí.** Když řez přidává nebo mění data, musí být jasné, kdo je smí vidět, měnit a mazat. Když to v zadání není, doptej se přes skill "preklad-rozhodnuti". Nedomýšlej si to.
 
-4. **Piš po jednom.** Jeden test, k němu nejmenší kus kódu, který ho rozsvítí, a další. Nikdy nepiš všechny testy dopředu. V prohlížeči je to jeden test na jednu cestu, a píše se, až když obrazovka stojí.
+4. **Piš po jednom.** Jeden test, k němu nejmenší kus kódu, který ho rozsvítí, a další. Nikdy nepiš všechny testy dopředu. Každou podmínku ověř na nejnižší vrstvě, která to dokáže (skill "pravidla-testu"). V prohlížeči nejvýš dva testy na řez, a píšou se, až když obrazovka stojí.
 
-5. **Test napřed a viz ho spadnout.** Test, který jsi neviděl spadnout, nic neověřuje.
+5. **Test napřed a viz ho spadnout.** Test, který jsi neviděl spadnout, nic neověřuje. Pouštěj přitom jen ten jeden test, ne celou vrstvu.
 
-6. **Průběžně pouštěj `npm run check`.** Kontrola typů a rychlé testy, otázka sekund. Celou sadu včetně prohlížeče až na konci, ta se pouští jednou.
+6. **Průběžně pouštěj `npm run check`.** Kontrola typů a jednotkové testy, do databáze nesahá. Když píšeš akci nebo pravidlo přístupu, přidej `npm run check:db`. Test v prohlížeči pouštěj po jednom (`npm run test:e2e -- e2e/<spec>.spec.ts`), celé ověření řezu až na konci, jednou.
 
 7. **Podívej se na to.** Spusť aplikaci a pusť `npm run screenshot -- <cesta>` na každou stránku, které ses dotkl. Udělá obrázek pro mobil i počítač a vypíše chyby z konzole a padlé požadavky. Obrázky si přečti. **Prázdná stránka, chyba v konzoli nebo rozsypaný obsah jsou nález, i když jsou testy zelené**, protože test ověří jen to, co jsi mu nadiktoval. Když stránka potřebuje přihlášení, dej skriptu stav přihlášení z testů (`--storage`), nepiš si vlastní skript. Server po sobě zase zhasni, jinak zůstane viset na portu a příští spuštění spadne na něčem, co s prací nesouvisí. Tohle není ověření, to je krok 8.
 
-8. **Ověř.** Zavolej skill "zkontroluj".
+8. **Ověř.** Zavolej skill "zkontroluj". Ten pouští `verify:rez` a jeho výstup je zároveň důkaz, že je řez hotový; před commitem ho znovu nepouštěj, pokud ses od té doby kódu nedotkl.
 
 9. **Ulož checkpoint.** Commit na aktuální větev, v popisu jednou větou česky, co teď funguje. Pomocné soubory, které jsi cestou vyrobil, před commitem smaž. `prototypy/` jsou jen pro `/vibe:prototyp`, ne pro tvoje nástroje.
 
@@ -41,7 +41,9 @@ Tvrdá pojistka: **maily na skutečné adresy neposíláš a schránku uživatel
 
 ## Kdy je řez hotový
 
-Řez je hotový, když jsi **ukázal výstup příkazu `npm run verify`** a je zelený. Zelený `npm run check` to nenahrazuje, ten prohlížeč nespouští.
+Řez je hotový, když jsi **ukázal výstup příkazu `npm run verify:rez`** se specem řezu a specy stránek, kterých ses dotkl, a je zelený. Když se skript sám přepnul na plnou sadu, platí její výstup. Zelený `npm run check` to nenahrazuje, ten do databáze ani do prohlížeče nesahá.
+
+Plnou sadu `npm run verify` pusť sám navíc, když řez mění něco, co používají i jiné stránky (sdílenou komponentu, hlavičku, výpočet, na kterém stojí víc obrazovek) a nejsi si jistý, že jsi vybral všechny dotčené specy.
 
 Tvrzení "funguje to", "mělo by to fungovat" nebo "testy procházejí" není důkaz. Důkaz je vypsaný výstup.
 

@@ -18,6 +18,7 @@ Vypiš tyhle řezy uživateli **zvlášť** a řekni, proč tam jsou: nechtěl j
 - Řez se vejde do jednoho sezení s agentem. Když je větší, rozsekni ho.
 - Řezy mají **pořadí**. Neřeš složité závislosti, stačí, že to jde odshora dolů a každý řez staví na hotových.
 - Ke každému řezu, který přidává nová data, patří **test oprávnění**. Není to zvláštní řez, je to jeho součást.
+- Každá podmínka "Hotovo, když" nese vrstvu, na které se ověří: `[výpočet]`, `[oprávnění]`, `[akce]`, `[prohlížeč]` nebo `[ručně]`. Vybírá se **nejnižší, která to dokáže** (skill "pravidla-testu"). `[prohlížeč]` dostanou v řezu nejvýš dvě podmínky, hlavní cesta a nejvýš jedna, která se na obrazovce chová jinak. Okrajové případy (cizí účet, prázdný seznam, druhé kliknutí) jsou `[akce]` nebo `[oprávnění]`, vzhled a srozumitelnost `[ručně]`.
 - Když je potřeba nejdřív něco přerovnat, aby šla práce udělat snadno, dej to jako první řez.
 
 ## Ukaž to uživateli
@@ -45,8 +46,9 @@ Podle nastavení projektu buď po jednom souboru do složky té věci `.ukoly/<s
 **Napřed musí být hotové:** čísla řezů, nebo "nic, může se začít". Vyplň to poctivě, `postav` se na to spoléhá a bez toho začne stavět na něčem, co neexistuje.
 
 **Hotovo, když:**
-- [ ] <ověřitelná podmínka>
-- [ ] <ověřitelná podmínka>
+- [ ] `[prohlížeč]` <hlavní cesta očima uživatele>
+- [ ] `[akce]` <ověřitelná podmínka>
+- [ ] `[oprávnění]` <kdo na data nedosáhne>
 
 **Poznámky pro stavbu:** zatím nic. Sem `postav` z předchozích řezů zapíše, co tenhle potřebuje vědět.
 ```

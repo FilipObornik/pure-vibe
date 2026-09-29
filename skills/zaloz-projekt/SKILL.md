@@ -58,14 +58,23 @@ A jednu větu navíc: **paměť projektu jsou tyhle soubory, ne chat.** Když se
 
 ## 4. Postav ověřování
 
-Vytvoř **dva** příkazy, protože ověřování má dvě rychlosti. Pravidla drží skill "pravidla-testu".
+Ověřování má tři rychlosti, protože testy databáze sahají do vývojového projektu na volném plánu a plná sada s prohlížečem trvá minuty. Pravidla drží skill "pravidla-testu".
 
-- **`npm run check`** na průběžné psaní: kontrola typů a rychlé testy, bez prohlížeče. Musí být otázkou sekund, jinak se přestane pouštět.
-- **`npm run verify`** na konec řezu: kontrola typů, testy oprávnění, integrační testy a testy v prohlížeči.
+- **`npm run check`** na průběžné psaní: kontrola typů a jednotkové testy. Do databáze nesahá, musí být otázkou sekund, jinak se přestane pouštět.
+- **`npm run check:db`**: testy oprávnění a integrační dotčené neuloženou změnou (`vitest run tests/permissions tests/integration --changed --passWithNoTests`).
+- **`npm run verify:rez`** uzavírá řez: jen testy dotčené změnou od posledního plného běhu a vybrané testy v prohlížeči. U rizikové změny (migrace, přihlášení, závislosti, nastavení testů) nebo po pěti commitech bez plného běhu se sám přepne na plnou sadu.
+- **`npm run verify`**: plná sada, všechny vrstvy a všechny testy.
 
-`verify` skládej z menších skriptů, jeden na vrstvu. Když je něco červené, dá se pak pustit jen ta vrstva, místo celé sady dokola.
+`scripts/verify.mjs` zkopíruj ze souboru `verify.mjs` ve složce tohohle skillu, `verify` je `node scripts/verify.mjs` a `verify:rez` je `node scripts/verify.mjs --rez`. Nahoře v něm je nastavení: vrstvy plné sady a cesty, na kterých stojí celá aplikace. Uprav je podle projektu. Plná sada volá menší skripty, jeden na vrstvu (`test:unit`, `test:permissions`, `test:integration`, `test:e2e`). Když je něco červené, dá se pak pustit jen ta vrstva, místo celé sady dokola.
 
-Uživateli to vysvětli jednou větou: **kratší běží pořád, delší rozhoduje o tom, jestli je hotovo.**
+Do nastavení testů rovnou dej, co volný plán databáze potřebuje. Jeho stroj má půl giga paměti a pod zátěží testů se umí na desítky sekund zastavit (skill "stack"):
+
+- Vitest: `maxWorkers: 4` (víc souběžných souborů databázi přetíží a rychlejší to není), `testTimeout` a `hookTimeout` 60 s.
+- Playwright: `timeout` 90 s a `expect: { timeout: 15_000 }`.
+
+Testy nečekají pevnou dobu, delší strop jen určuje, kdy je čekání už chyba, ne zastavení databáze.
+
+Uživateli to vysvětli jednou větou: **krátké běží pořád, ověření řezu pustí jen to, čeho se změna dotkla, a plná sada rozhoduje, když jde o hodně.**
 
 Doinstaluj prohlížeče pro testování (`npx playwright install`). Samotný balíček nestačí a chybová hláška, která z toho jinak vypadne, je pro uživatele nesrozumitelná.
 

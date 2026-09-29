@@ -13,7 +13,7 @@ Názvy testů piš anglicky, stejně jako kód. Dokumenty a rozhovor s uživatel
 
 ## Čtyři vrstvy
 
-Všechny běží pod jedním příkazem `npm run verify`.
+Všechny běží pod jedním příkazem `npm run verify`, dotčené z nich pod `npm run verify:rez`.
 
 **1. Kontrola typů.** Zdarma a okamžitá. Nic k rozhodování.
 
@@ -27,17 +27,37 @@ Ke každé nové tabulce patří test oprávnění ve stejném řezu. Bez něj n
 
 **Jednotkové testy** piš jen tam, kde je pravidlová logika: ceny, slevy, výpočty, přechody stavů. Nikde jinde.
 
-## Dvě rychlosti
+## Každá podmínka na nejnižší vrstvě, která ji ověří
 
-Kdyby se po každé změně pouštělo všechno včetně prohlížeče, čekání by bylo tak dlouhé, že by se ověřování začalo obcházet. Proto jsou příkazy dva.
+Test v prohlížeči je nejpomalejší a nejvíc zatěžuje databázi: každý si vyrábí lidi, přihlašuje je a načítá stránky s obrázky. Proto se podmínka ověřuje **na nejnižší vrstvě, která ji dokáže ověřit**:
 
-**`npm run check`** je na průběžné psaní: kontrola typů a rychlé testy, tedy vrstvy 1 až 3 bez prohlížeče. Trvá sekundy a pouští se často.
+- Výpočet, tvar slova, řazení, převod data: **jednotkový test**.
+- "Cizí to nepřečte, nezmění, nesmaže": **test oprávnění**.
+- Co akce udělá s daty, okrajové případy (stažená věc, prázdný seznam, druhé kliknutí, cizí účet): **integrační test**.
+- Že to člověk projde na obrazovce od začátku do konce: **prohlížeč**.
+- Jak to vypadá a jestli je text srozumitelný: **screenshot a proklik člověka**, ne test.
 
-**`npm run verify`** je na konec řezu a před ukázáním komukoli: všechny čtyři vrstvy, prohlížeč včetně.
+**Strop: řez přidá nejvýš dva testy v prohlížeči.** Jeden na hlavní cestu a nejvýš jeden na cestu, která se na obrazovce opravdu chová jinak (třeba nepřihlášený skončí na přihlášení). Když tě láká napsat třetí, patří ta podmínka o vrstvu níž. Test v prohlížeči neověřuje vzhled (barvy, rozestupy, třídy), na to je screenshot.
 
-Zelený `check` **není ověření**. Řez je hotový až po zeleném `verify`, a ten se dokládá vypsaným výstupem. Skill "zkontroluj" pouští vždycky `verify`, nikdy `check`.
+## Tři úrovně ověření
 
-Když vrstvy 2 a 3 narostou tak, že `check` přestane být otázkou sekund, pouštěj v něm jen testy dotčené změnou a celou sadu nech na `verify`.
+Každý test sahá do vývojového projektu Supabase na volném plánu. Kdyby se po každé změně pouštělo všechno, čekalo by se dlouho, přetěžovala by se databáze a ověřování by se začalo obcházet. Proto jsou úrovně tři:
+
+**`npm run check`** je na průběžné psaní: kontrola typů a jednotkové testy. Do databáze nesahá, trvá sekundy a pouští se často. **`npm run check:db`** k tomu pustí testy oprávnění a integrační testy dotčené neuloženou změnou. Pouštěj ho, když píšeš akci nebo pravidlo přístupu, ne po každém řádku.
+
+**`npm run verify:rez -- e2e/<spec>.spec.ts`** uzavírá řez: typy, jednotkové testy, testy oprávnění a integrační testy dotčené změnou od posledního plného běhu, sestavení a **jen vybrané testy v prohlížeči**. Vybírá se spec řezu a specy stránek, na které změna sáhla (najdeš je hledáním cesty stránky nebo textu z ní v `e2e/`). Změněné specy přidá skript sám. Když změna v prohlížeči nemá co ukázat, spustí se s `--bez-prohlizece`.
+
+**`npm run verify`** je plná sada: všechny vrstvy, všechny testy. `verify:rez` se na ni **přepne sám**, když změna sáhne na migrace, přihlášení, proxy, závislosti nebo nastavení testů, nebo když od posledního zeleného plného běhu uběhlo pět commitů. Pouštěj ji ručně před tím, než aplikaci někdo uvidí (`najdi-slaba-mista`, `pust-to-ven`), a když si nejsi jistý, jestli změna nesahá dál, než vypadá.
+
+Zelený `check` **není ověření**. Řez je hotový až po zeleném `verify:rez` nebo `verify`, a ten se dokládá vypsaným výstupem. Výstup `verify:rez` vždycky vypíše, co pustil a co ne. Tu větu předej dál, nezamlčuj ji.
+
+## Když něco spadne
+
+Pusť **jen to, co spadlo**: `npx playwright test --last-failed`, u Vitestu ten jeden soubor. Celou úroveň znovu nepouštěj. Opakovat celou sadu po každém pokusu je nejrychlejší cesta k "Too many connections" a v minulých sezeních to byla polovina času řezu.
+
+- **Soubor, který sám projde, spadl na zátěži, ne na kódu.** Zapiš do shrnutí, který test a s jakou hláškou, a pokračuj. Celou sadu kvůli tomu znovu nepouštěj.
+- **Soubor, který spadne i sám, je chyba.** Oprav ji, i když vypadá jako zátěž, a pusť zase jen ten soubor.
+- **Nikdy nečekej přes `sleep`, až se limity obnoví.** Čekání minutami nic neověří a zátěž se jím nesníží. Když padá i jednotlivý soubor na "rate limit" nebo 429, řekni to uživateli a nepokračuj naslepo.
 
 ## Izolace testovacích dat
 
@@ -59,6 +79,7 @@ Agenti tady dělají čtyři chyby pořád dokola:
 - **Nikdy nečekej pevnou dobu.** Čekání na počet sekund je hlavní příčina testů, které jednou projdou a podruhé ne. Čekej na stav, ne na čas.
 - **Nepřihlašuj se přes formulář v každém testu.** Přihlas se jednou a stav přihlášení znovu použij.
 - **Data připrav přes rozhraní, ne proklikáním.** Test má ověřovat jednu věc, ne dvacet kroků příprav.
+- **Lidi vyráběj jednou na soubor, ne v každém testu.** Každý vyrobený člověk je volání přihlašování a úložiště Supabase. Když testy v souboru potřebují stejné role (majitelka, zájemce), vyrob je v `beforeAll` a smaž v `afterAll`. Vlastního člověka dostane jen test, který mu mění data, na kterých stojí ostatní testy.
 
 **Než napíšeš první test v projektu, přečti si soubor `priklady.md` ve složce tohohle skillu.** Jsou v něm konkrétní tvary všech tří vrstev, včetně toho, jak vypadají špatně, a pasti, na kterých se dá napsat test, co vypadá, že hlídá, a nehlídá nic.
 

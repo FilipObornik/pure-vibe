@@ -5,20 +5,20 @@ description: Ověř, že aplikace dělá to, co bylo v zadání, a dolož to vý
 
 Ověření dělá **jiný agent, než ten, co to psal.** Kdo práci napsal, ten ji nehodnotí: vidí, co chtěl napsat, ne co tam je.
 
-Tenhle skill pouští **plnou sadu**. Rychlá kontrola během psaní je `npm run check` a ověření nenahrazuje.
+Tenhle skill pouští **ověření řezu** (`npm run verify:rez`), které se u rizikových změn samo přepne na plnou sadu. Rychlá kontrola během psaní je `npm run check` a ověření nenahrazuje.
 
 ## Postup
 
-1. Spusť `npm run verify` a **vypiš skutečný výstup**, ne jeho shrnutí.
+1. Vyber testy v prohlížeči: spec řezu a specy stránek, na které změna sáhla (hledej cestu stránky nebo text z ní v `e2e/`). Spusť `npm run verify:rez -- <specy>` a **vypiš skutečný výstup**, ne jeho shrnutí. Před ukázáním aplikace komukoli cizímu pusť místo toho plné `npm run verify`. **Ověření se pouští jednou.** Když ho v tomhle sezení už zeleně doběhl `postav` a od té doby se kód ani testy nezměnily, použij ten výstup a nepouštěj ho znovu.
 
 2. Pošli subagenta s čistým kontextem. Dej mu jen dvě věci: **zadání nebo řez** a **výstup příkazu**. Ať odpoví na tři otázky:
    - Dělá to všechno, co v zadání stálo? Co chybí?
    - Je tam něco navíc, co nikdo nechtěl?
    - Sedí sekce "Jak poznáme, že to funguje" se skutečnými testy, nebo jsou testy měkčí, než zadání slibovalo?
 
-3. Když je něco červené, **nepokračuj a neomlouvej to.** Oprav, spusť znovu.
+3. Když je něco červené, **nepokračuj a neomlouvej to.** Oprav a pusť znovu jen to, co spadlo (skill "pravidla-testu"), ne celou sadu.
 
-4. Když je všechno zelené, napiš tři odstavce: co se ověřilo, co se **neověřilo** a co si má uživatel proklikat sám.
+4. Když je všechno zelené, napiš tři odstavce: co se ověřilo, co se **neověřilo** a co si má uživatel proklikat sám. Do "neověřilo" patří i to, co `verify:rez` nepustil: testy v prohlížeči mimo vybrané specy a nedotčené testy databáze.
 
 ## Přiznej, kde je hranice ověření
 
